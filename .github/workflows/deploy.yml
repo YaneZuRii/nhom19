@@ -3,32 +3,25 @@ name: Build and Deploy via FTP
 on:
   push:
     branches:
-      - main        # Tự động chạy khi push code lên nhánh main
-  workflow_dispatch:  # Cho phép bấm "Run workflow" thủ công trong tab Actions
+      - main
+  workflow_dispatch:
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-      # 1️⃣ Lấy code từ repo
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # 2️⃣ (Tuỳ chọn) Build project nếu có (bạn có thể bỏ qua nếu chỉ là HTML/CSS/JS)
-      # - name: Install dependencies
-      #   run: npm install
-      # - name: Build project
-      #   run: npm run build
-
-      # 3️⃣ Upload qua FTP
+      # Upload via FTP
       - name: Upload via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
-          server: ftp://hehemeomeo.somee.com     # Địa chỉ FTP
-          username: ${{ secrets.SOMEE_FTP_USER }}  # Tên đăng nhập (thêm vào Secrets)
-          password: ${{ secrets.SOMEE_FTP_PASS }}  # Mật khẩu (thêm vào Secrets)
-          server-dir: /haha/                      # Thư mục trên server Somee
-          local-dir: ./                           # Thư mục cần upload (gốc repo)
+          server: hehemeomeo.somee.com             # ❌ Không có ftp:// ở đây
+          username: ${{ secrets.SOMEE_FTP_USER }}
+          password: ${{ secrets.SOMEE_FTP_PASS }}
+          server-dir: /www.hehemeomeo.somee.com/   # hoặc /haha/ tùy nơi bạn muốn upload
+          local-dir: ./                            # upload tất cả file trong repo
           protocol: ftp
           port: 21
