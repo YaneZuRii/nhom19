@@ -26,9 +26,9 @@ jobs:
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
           server: ftp://hehemeomeo.somee.com/www.hehemeomeo.somee.com              # ← đổi thành địa chỉ FTP của bạn
-          username: ${{ secrets.FTP_USERNAME }}   # ← tạo secret trong Settings
-          password: ${{ secrets.FTP_PASSWORD }}   # ← tạo secret trong Settings
-          server-dir: /public_html/               # ← thư mục đích trên server
-          local-dir: ./dist                       # ← thư mục chứa file build (hoặc ./ nếu không có build)
+          username: ${{ secrets.SOMEE.FTP_USER }}   # ← tạo secret trong Settings
+          password: ${{ secrets.SOMEE.FTP_PASS }}   # ← tạo secret trong Settings
+          server-dir: ./               # ← thư mục đích trên server
+          local-dir: ./                       # ← thư mục chứa file build (hoặc ./ nếu không có build)
           protocol: ftp                           # hoặc sftp nếu server dùng SSH
           port: 21                                # cổng FTP mặc định
