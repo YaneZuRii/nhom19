@@ -25,7 +25,7 @@ jobs:
       - name: Upload via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
-          server: ftp://hehemeomeo.somee.com/www.hehemeomeo.somee.com              # ← đổi thành địa chỉ FTP của bạn
+          server: hehemeomeo.somee.com              # ← đổi thành địa chỉ FTP của bạn
           username: ${{ secrets.SOMEE_FTP_USER }}   # ← tạo secret trong Settings
           password: ${{ secrets.SOMEE_FTP_PASS }}   # ← tạo secret trong Settings
           server-dir: ./               # ← thư mục đích trên server
