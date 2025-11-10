@@ -1,22 +1,34 @@
-name: build-and-deploy
+name: Build and Deploy via FTP
 
 on:
   push:
     branches:
-      - main
+      - main  # chạy mỗi khi bạn push code lên nhánh main
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
+
     steps:
+      # 1️⃣ Lấy code từ repo
       - name: Checkout code
         uses: actions/checkout@v4
 
+      # 2️⃣ (Tuỳ chọn) Build project nếu có — ví dụ React, Vue, NodeJS
+      # Nếu chỉ upload file tĩnh (HTML, CSS, JS thuần) thì có thể bỏ qua phần này
+      # - name: Install dependencies
+      #   run: npm install
+      # - name: Build project
+      #   run: npm run build
+
+      # 3️⃣ Upload qua FTP
       - name: Upload via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
-          server: ftp.yourserver.com
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: ./dist
-          server-dir: /public_html/
+          server: ftp://hehemeomeo.somee.com/www.hehemeomeo.somee.com              # ← đổi thành địa chỉ FTP của bạn
+          username: ${{ secrets.FTP_USERNAME }}   # ← tạo secret trong Settings
+          password: ${{ secrets.FTP_PASSWORD }}   # ← tạo secret trong Settings
+          server-dir: /public_html/               # ← thư mục đích trên server
+          local-dir: ./dist                       # ← thư mục chứa file build (hoặc ./ nếu không có build)
+          protocol: ftp                           # hoặc sftp nếu server dùng SSH
+          port: 21                                # cổng FTP mặc định
